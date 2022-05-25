@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+//Multi linkedlist dengan menggunakan double linkedlist
 
 //mendefinisikan tipe dari Child
 struct Child{
@@ -14,7 +15,7 @@ struct NodeChild{
     NodeChild* next;
     NodeChild* prev;
 };
-
+//akhir dari definisi child
 struct ListChild{
     NodeChild* first;
 };
@@ -33,12 +34,12 @@ struct NodeParent{
     NodeParent* prev;
     ListChild* childNumb;
 };
-
+//akhir dari definisi parent
 struct ListParent{
     NodeParent* first;
 };
 
-//menambah data Parent
+//menambah node/data kedalam list parent
 void addDataParent(ListParent* list, int num){
     NodeParent* node = new NodeParent();
     Parent* add = new Parent(num);
@@ -52,7 +53,8 @@ void addDataParent(ListParent* list, int num){
         list->first = node;
     }
 }
-//menambah data Child
+
+//menambah node/data kedalam list child 
 void addDataChild(ListChild* list, int numb, NodeChild* addnode = NULL){
     if (numb != 0){
         NodeChild* node = new NodeChild();
@@ -79,7 +81,8 @@ void addDataChild(ListChild* list, int numb, NodeChild* addnode = NULL){
         }
     }   
 }
-//menghapus data Parent
+
+//menghapus node/data yang ada didalam suatu list child
 void delParent(ListParent* list, int dataParent){
     NodeParent* key = NULL, *prev = NULL , *curP = list->first;
     bool found = false;
@@ -108,7 +111,7 @@ void delParent(ListParent* list, int dataParent){
     }
 }
 
-//mennghapus data Child
+//menghapus node/data yang ada didalam suatu list child
 void delChild(ListChild* list, int dataChild){
     NodeChild* key = NULL, *prev = NULL, *curC = list->first;
     bool found = false;
@@ -137,7 +140,7 @@ void delChild(ListChild* list, int dataChild){
     }
 }
 
-//searching data Parent
+//mencari node data dalam list Parent
 NodeParent* searchDataParent(ListParent* list, int data){
     NodeParent* curP = list->first;
     while (curP != NULL){
@@ -148,7 +151,7 @@ NodeParent* searchDataParent(ListParent* list, int data){
     }
     return NULL;       
 }
-//searching data Child
+//mencari node data dalam list child
 NodeChild* searchDataChild(ListChild* list, int data){
     NodeChild* curC = list->first;
     while (curC != NULL){
@@ -160,7 +163,8 @@ NodeChild* searchDataChild(ListChild* list, int data){
     return NULL;
 }
 
-//menambahkan relasi pada data 
+//menambahkan relasi pada data parent dan dijadikan list child
+//data list child didapat dari list child yg sudah diinput sebelumnya
 void addRelationData(ListParent* listP, ListChild* listC, int dataParent, int dataChild){
     NodeParent* p;
     NodeChild* c,*r;
@@ -182,7 +186,7 @@ void addRelationData(ListParent* listP, ListChild* listC, int dataParent, int da
     }
 }
 
-//menghapus relasi pada data
+//menghapus relasi pada data parent, yang telah diinput sebelumnya
 void delReationData(ListParent* listP, ListChild* listC, int dataParent, int dataChild){
     NodeParent* p;
     ListChild* lChild;
@@ -194,7 +198,7 @@ void delReationData(ListParent* listP, ListChild* listC, int dataParent, int dat
     }
 }
 
-//menampilkan data 
+//menampilkan data yg telah dimasukan
 void printList(ListParent* p = NULL, ListChild* c = NULL){
     if (p != NULL){
         NodeParent* curP = p->first;
@@ -225,7 +229,6 @@ void printList(ListParent* p = NULL, ListChild* c = NULL){
     }
 }
 
-
 int main(){
     ListParent* dataP = new ListParent();
     ListChild* dataC = new ListChild();
@@ -248,6 +251,9 @@ int main(){
     printList(dataP,dataC);
     
     addRelationData(dataP,dataC,5,9);
+    printList(dataP,dataC);
+
+    addRelationData(dataP,dataC,10,4);
     printList(dataP,dataC);
    
     delReationData(dataP,dataC,5,9);
